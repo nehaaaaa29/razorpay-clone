@@ -9,7 +9,7 @@ import java.util.UUID;
 @Table(name = "app_user")
 public class AppUser {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)

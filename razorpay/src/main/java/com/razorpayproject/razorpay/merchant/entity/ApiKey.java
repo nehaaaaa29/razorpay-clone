@@ -1,0 +1,37 @@
+package com.razorpayproject.razorpay.merchant.entity;
+
+import jakarta.persistence.*;
+import org.hibernate.cfg.Environment;
+
+import java.util.UUID;
+
+@Entity
+@Table(name = "api_key")
+public class ApiKey {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "merchant_id",nullable = false)
+    private  Merchant merchant;
+
+    @Column(nullable = false,length = 50,unique = true)
+    private String key_id;
+
+    @Column(nullable = false,length = 200)
+    private String key_secret_hash;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false,length = 10)
+    private Environment environment;
+
+    @Column(nullable = false)
+    private boolean enabled;
+
+    private java.time.LocalDateTime lastUsedAt;
+    private java.time.LocalDateTime RotatedAt;
+    private java.time.LocalDateTime gracePeriodExpiresAt;
+
+
+
+}

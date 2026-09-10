@@ -1,5 +1,7 @@
 package com.razorpayproject.razorpay.payment.entity;
 
+import com.razorpayproject.razorpay.common.enums.PaymentActor;
+import com.razorpayproject.razorpay.common.enums.PaymentEvent;
 import com.razorpayproject.razorpay.common.enums.PaymentStatus;
 import jakarta.persistence.*;
 
@@ -31,7 +33,7 @@ public class Payment_Transaction {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "actor", length = 100)
-    private String actor;
+    private PaymentActor actor;
 
     @Column(name = "occurred_at", nullable = false)
     private LocalDateTime occurredAt;

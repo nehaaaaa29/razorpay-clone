@@ -1,6 +1,4 @@
 package com.razorpayproject.razorpay.common.enums;
 
-public enum Environment {
-    LIVE,
-    TEST
+public enum PaymentMethod {
 }

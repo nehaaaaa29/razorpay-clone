@@ -1,12 +1,15 @@
 package com.razorpayproject.razorpay.merchant.entity;
 
+import com.razorpayproject.razorpay.common.enums.Environment;
 import jakarta.persistence.*;
-import org.hibernate.cfg.Environment;
+import lombok.*;
+
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "api_key")
+
 public class ApiKey {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -2,6 +2,8 @@ package com.razorpayproject.razorpay.operations.entity;
 
 import com.razorpayproject.razorpay.common.enums.WebhookEventStatus;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -14,25 +16,39 @@ public class WebhookEvent {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
     private UUID merchantId;
 
+    @Column(nullable = false,length = 100)
     private String evenType;
 
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
     private Map<String,Object> payload;
 
+    @Column(nullable = false)
     private String targetUrl;
 
+    @Column(nullable = false)
     private String signature;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status",nullable = false)
     private WebhookEventStatus status;
 
-    private Integer attempts;
+    @Column(nullable = false)
+    private Integer attempts=0;
 
     private LocalDateTime  nextRetryAt;
 
     private LocalDateTime lastAttemptAT;
 
     private Integer lastResponseCode;
+
+    @Column(length = 1000)
+    private String lastResponseBody;
+
+    private LocalDateTime deliveredAt;
 
 
 

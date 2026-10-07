@@ -1,7 +1,11 @@
 package com.razorpayproject.razorpay.merchant.service.impl;
 
+import com.razorpayproject.razorpay.common.enums.MerchantStatus;
+import com.razorpayproject.razorpay.common.enums.UserRole;
 import com.razorpayproject.razorpay.merchant.dto.request.MerchantSignupRequest;
 import com.razorpayproject.razorpay.merchant.dto.response.MerchantResponse;
+import com.razorpayproject.razorpay.merchant.entity.AppUser;
+import com.razorpayproject.razorpay.merchant.entity.Merchant;
 import com.razorpayproject.razorpay.merchant.repository.AppUserRepository;
 import com.razorpayproject.razorpay.merchant.repository.MerchantRepository;
 import com.razorpayproject.razorpay.merchant.service.AuthService;
@@ -21,7 +25,25 @@ public class AuthServiceImpl implements AuthService {
         if(merchantRepository.existsByEmail(request.email())){
             throw  new RuntimeException("Merchant with email already exists:"+request.email());
         }
+        Merchant merchant =Merchant.builder()
+                .businessName(request.businessName())
+                .businessType(request.businessType())
+                .name(request.name())
+                .email(request.email())
+                .status(MerchantStatus.PENDING_KYC)
+                .build();
+        merchant= merchantRepository.save(merchant);
 
-        return null;
+        AppUser appUser = AppUser.builder()
+                .email(request.email())
+                .merchant(merchant)
+                .password_hash(request.password())// todo:encrpt using bcrypt
+                .role(UserRole.OWNER)
+                .build();
+        appUserRepository.save(appUser);
+
+        return new MerchantResponse(merchant.getId(),merchant.getEmail(),merchant.getName(),
+                merchant.getBusinessName(),merchant.getBusinessType(),
+                merchant.getStatus());
     }
 }

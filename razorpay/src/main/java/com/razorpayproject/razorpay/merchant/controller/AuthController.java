@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AuthController {
     private final AuthService authService;
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<MerchantResponse> signup(@RequestBody @Valid MerchantSignupRequest request){
        return ResponseEntity.status(HttpStatus.CREATED).body(
                authService.signup(request)
-       )
+       );
     }
 
 

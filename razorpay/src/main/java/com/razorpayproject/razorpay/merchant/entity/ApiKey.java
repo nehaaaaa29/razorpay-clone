@@ -33,7 +33,8 @@ public class ApiKey {
     private Environment environment;
 
     @Column(nullable = false)
-    private boolean enabled;
+    @Builder.Default
+    private boolean enabled=true;
 
     private java.time.LocalDateTime lastUsedAt;
     private java.time.LocalDateTime RotatedAt;

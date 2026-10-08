@@ -1,0 +1,14 @@
+package com.razorpayproject.razorpay.merchant.service;
+
+
+import com.razorpayproject.razorpay.merchant.dto.request.CreateApiKeyRequest;
+import com.razorpayproject.razorpay.merchant.dto.response.ApiKeyCreateResponse;
+import jakarta.validation.Valid;
+import org.jspecify.annotations.Nullable;
+
+import java.util.UUID;
+
+public interface ApiKeyService {
+ ApiKeyCreateResponse create(UUID merchantId,  CreateApiKeyRequest request);
+
+}
